@@ -2,11 +2,14 @@ var express = require('express');
 var crypto = require('crypto-js');
 var router = express.Router();
 
+
+//mysql://bc8be747ba4ac8:36d14e8c@eu-cdbr-west-02.cleardb.net/heroku_537ca9b5b95db5f?reconnect=true
+
 let mysql = require('mysql');
 let mysqlOpt = {
-  database:'storiette',
-  host:'192.168.64.2',//localhost
-  user:'me',//root
+  database:'heroku_537ca9b5b95db5f',
+  host:'eu-cdbr-west-02.cleardb.net',//localhost
+  user:'bc8be747ba4ac8',//root
   password:''
 }
 let connection = mysql.createConnection(mysqlOpt);
@@ -95,7 +98,6 @@ router.post('/doLogin', function (req, res) {
   })
 
 })
-
 
 
 //tes crypto
