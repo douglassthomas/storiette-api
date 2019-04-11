@@ -10,7 +10,7 @@ let mysqlOpt = {
   database:'heroku_537ca9b5b95db5f',
   host:'eu-cdbr-west-02.cleardb.net',//localhost
   user:'bc8be747ba4ac8',//root
-  password:''
+  password:'36d14e8c'
 }
 let connection = mysql.createConnection(mysqlOpt);
 
