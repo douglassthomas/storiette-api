@@ -32,19 +32,38 @@ router.get('/header', function (req, res) {
   res.render('storyheader');
 })
 
+let sql = require('mssql')
+var config = {
+  server: 'storiette.database.windows.net',
+  user: 'storiette',
+  password: 'Douglassthomas!',
+  database: 'storiette',
+  options: {
+    encrypt: true
+  }
+}
+
+var conn = new sql.ConnectionPool(config)
 
 // ---- function ----
-router.get('/allUser', function (req, res) {
-  connection.query('SELECT * FROM users', function (err, result) {
-    if(err){
-      console.log(err)
-    }
-    
-    return res.json({
-      user:result[0].username
+router.get('/allMSUser', function (req, res) {
+  conn.connect(function (err) {
+    if(err)  return res.json(error)
+
+    var req = new sql.Request(conn)
+    req.query('select * from users', function (err, result) {
+      if(err){
+        return res.json({
+          status:'error',
+          message:err.message
+        })
+      }else{
+        return res.json(result)
+      }
 
     })
   })
+
 })
 
 router.post('/regUser', function (req, res) {
