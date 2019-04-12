@@ -7,10 +7,10 @@ var router = express.Router();
 
 let mysql = require('mysql');
 let mysqlOpt = {
-  database:'heroku_537ca9b5b95db5f',
-  host:'eu-cdbr-west-02.cleardb.net',//localhost
-  user:'bc8be747ba4ac8',//root
-  password:'36d14e8c'
+  database:'storiette', //heroku_537ca9b5b95db5f
+  host:'storiette.database.windows.net',//eu-cdbr-west-02.cleardb.net
+  user:'storiette',//bc8be747ba4ac8
+  password:'Douglassthomas!'
 }
 let connection = mysql.createConnection(mysqlOpt);
 
