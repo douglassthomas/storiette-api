@@ -21,7 +21,7 @@ let connection = mysql.createConnection(mysqlOpt);
 
 // ---- page ----
 router.get('/', function (req, res) {
-  res.render('index');
+  res.json('ok')
 })
 
 router.get('/home', function (req, res) {
