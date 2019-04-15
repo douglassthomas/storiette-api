@@ -1,7 +1,8 @@
 var express = require('express');
 var crypto = require('crypto-js');
 var router = express.Router();
-
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
 
 //mysql://bc8be747ba4ac8:36d14e8c@eu-cdbr-west-02.cleardb.net/heroku_537ca9b5b95db5f?reconnect=true
 
@@ -34,37 +35,68 @@ router.get('/header', function (req, res) {
 
 let sql = require('mssql')
 var config = {
-  server: 'storiette.database.windows.net',
-  user: 'storiette',
-  password: 'Douglassthomas!',
-  database: 'storiette',
-  options: {
-    encrypt: true
+  authentication: {
+    options: {
+        userName: 'storiette', // update me
+        password: 'Douglassthomas!' // update me
+    },
+    type: 'default'
+  },
+  server: 'storiette.database.windows.net', // update me
+  options:
+  {
+      database: 'storiette', //update me
+      encrypt: true
   }
 }
 
-var conn = new sql.ConnectionPool(config)
+var conn = new Connection(config);
+conn.on('connect', function (err) {
+  if (err)
+  {
+    console.log(err)
+  }
+  else
+  {
+    console.log('success connect')
+  }  
+})
 
 // ---- function ----
 router.get('/allMSUser', function (req, res) {
-  conn.connect(function (err) {
-    if(err)  return res.json(error)
+  var row = []
+  var req = new Request(
+    "SELECT * from users",
+    function(err, rowCount, rows)
+    {
+        console.log(rowCount + ' row(s) returned');
+        // process.exit();
+        // row = rows
+     }
 
-    var req = new sql.Request(conn)
-    req.query('select * from users', function (err, result) {
-      if(err){
-        return res.json({
-          status:'error',
-          message:err.message
-        })
-      }else{
-        return res.json(result)
-      }
+    
+  );
 
-    })
-  })
+  req.on('row', function(columns) {
+    
+    columns.forEach(function(column) {
+        // console.log(column)
+        row.push(column.value);
+        console.log("%s\t%s", column.metadata.colName, column.value);
+    });
+  });
 
+  conn.execSql(req);
+  console.log('row: '+row)
+  return res.json(row)
 })
+
+router.get('/allUser', function (req, res) {
+  connection.query('SELECT * FROM users', function (err, results) {
+    return res.json(results)
+  })
+})
+
 
 router.post('/regUser', function (req, res) {
   var username = req.body.username
