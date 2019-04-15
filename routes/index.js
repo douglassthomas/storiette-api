@@ -161,4 +161,28 @@ router.post('/check', function (req, res) {
 
 })
 
+//numpang ya
+router.get('/getNotif', function (req, res) {
+  return res.json([
+    {
+      idPasien:'IK01938',
+      name:'Borong borong',
+      date:'27/03/2019',
+      status:'normal'
+    },
+    {
+      idPasien:'IP02438',
+      name:'Borong borong',
+      date:'22/03/2019',
+      status:'terindikasi'
+    },
+    {
+      idPasien:'IA00938',
+      name:'Borong borong',
+      date:'28/03/2019',
+      status:'waspada'
+    }
+  ])
+})
+
 module.exports = router;
