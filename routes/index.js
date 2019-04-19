@@ -185,4 +185,17 @@ router.get('/getNotif', function (req, res) {
   ])
 })
 
+router.post('/dokterLogin', function (req, res) {
+    var id = req.body.idDokter;
+    var pass = req.body.password;
+
+    if(id=='admin'&&pass=='admin'){
+      return res.json({
+        status: 'success',
+        idDokter: id,
+        nama: 'Boyke'
+      })
+    }
+})
+
 module.exports = router;
