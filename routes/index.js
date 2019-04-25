@@ -189,7 +189,7 @@ router.post('/dokterLogin', function (req, res) {
     var id = req.body.idDokter;
     var pass = req.body.password;
 
-    if(id=='admin'&&pass=='admin'){
+    if(id=='DR000111'){
       return res.json({
         status: 'success',
         idDokter: id,
