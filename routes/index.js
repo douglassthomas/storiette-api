@@ -191,8 +191,8 @@ router.post('/dokterLogin', function (req, res) {
 
     if(id=='DR000111'){
       return res.json({
-        status: 'success',
-        idDokter: id,
+        loginstatus: 'success',
+        id: id,
         nama: 'Boyke'
       })
     }
