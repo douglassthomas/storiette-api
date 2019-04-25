@@ -197,4 +197,11 @@ router.post('/dokterLogin', function (req, res) {
     }
 })
 
+router.post('/lempar', function (req, res) {
+    return res.json(
+      req.body
+    )  
+})
+
+
 module.exports = router;
