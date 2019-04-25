@@ -186,7 +186,7 @@ router.get('/getNotif', function (req, res) {
 })
 
 router.post('/dokterLogin', function (req, res) {
-    var id = req.body.idDokter;
+    var id = req.body.id;
     var pass = req.body.password;
 
     if(id=='DR000111'){
