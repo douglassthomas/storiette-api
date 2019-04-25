@@ -198,6 +198,9 @@ router.post('/dokterLogin', function (req, res) {
 })
 
 router.post('/lempar', function (req, res) {
+    console.log(req.body)
+
+
     return res.json(
       req.body
     )  
