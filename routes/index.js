@@ -124,7 +124,7 @@ router.post('/doLogin', function (req, res) {
   var password = crypto.SHA256(req.body.password).toString()
   
   let query = {
-    sql:'SELECT password FROM users WHERE username=? or email=?',
+    sql:'SELECT username FROM users WHERE username=? or email=?',
     timeout:40000
   }
   connection.query(query, [username, username], function (err, result) {
