@@ -138,7 +138,7 @@ router.post('/doLogin', function (req, res) {
       if(result[0].password === password){
         return res.json({
           status: 'success',
-          username: result.username;
+          username: result.username
         })
       }
       else{
