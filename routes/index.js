@@ -35,63 +35,7 @@ router.get('/header', function (req, res) {
   res.render('storyheader');
 })
 
-let sql = require('mssql')
-var config = {
-  authentication: {
-    options: {
-        userName: 'storiette', // update me
-        password: 'Douglassthomas!' // update me
-    },
-    type: 'default'
-  },
-  server: 'storiette.database.windows.net', // update me
-  options:
-  {
-      database: 'storiette', //update me
-      encrypt: true
-  }
-}
 
-var conn = new Connection(config);
-conn.on('connect', function (err) {
-  if (err)
-  {
-    console.log(err)
-  }
-  else
-  {
-    console.log('success connect')
-  }  
-})
-
-// ---- function ----
-router.get('/allMSUser', function (req, res) {
-  var row = []
-  var req = new Request(
-    "SELECT * from users",
-    function(err, rowCount, rows)
-    {
-        console.log(rowCount + ' row(s) returned');
-        // process.exit();
-        // row = rows
-     }
-
-    
-  );
-
-  req.on('row', function(columns) {
-    
-    columns.forEach(function(column) {
-        // console.log(column)
-        row.push(column.value);
-        console.log("%s\t%s", column.metadata.colName, column.value);
-    });
-  });
-
-  conn.execSql(req);
-  console.log('row: '+row)
-  return res.json(row)
-})
 
 router.get('/allUser', function (req, res) {
   connection.query('SELECT * FROM users', function (err, results) {
