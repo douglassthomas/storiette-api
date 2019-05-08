@@ -152,8 +152,8 @@ router.post('/doLogin', function (req, res) {
 })
 
 router.get('/story', function (req, res) {
-  var search_params = new URLSearchParams(window.location.href)
-  var id = search_params.get('id')
+  // var search_params = new URLSearchParams(window.location.href)
+  // var id = search_params.get('id')
 
   return res.json({
     title: 'Berak tak Cebok',
