@@ -3,6 +3,13 @@ var crypto = require('crypto-js');
 var router = express.Router();
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
+var cors = require('cors')
+
+app.use(cors())
+app.get('/products/:id', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
+
 
 //mysql://bc8be747ba4ac8:36d14e8c@eu-cdbr-west-02.cleardb.net/heroku_537ca9b5b95db5f?reconnect=true
 
