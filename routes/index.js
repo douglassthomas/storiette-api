@@ -151,6 +151,17 @@ router.post('/doLogin', function (req, res) {
 
 })
 
+router.get('/story', function (req, res) {
+  var search_params = new URLSearchParams(window.location.href)
+  var id = search_params.get('id')
+
+  return res.json({
+    title: 'Berak tak Cebok',
+    author: 'Mr. Janji Pengkhianat wkwkw',
+    content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed illum libero fugiat consequuntur maxime ad vel consectetur natus, doloribus voluptatem exercitationem blanditiis dolorum culpa corrupti autem. Quae delectus explicabo nostrum? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed illum libero fugiat consequuntur maxime ad vel consectetur natus, doloribus voluptatem exercitationem blanditiis dolorum culpa corrupti autem. Quae delectus explicabo nostrum? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed illum libero fugiat consequuntur maxime ad vel consectetur natus, doloribus voluptatem exercitationem blanditiis dolorum culpa corrupti autem. Quae delectus explicabo nostrum? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed illum libero fugiat consequuntur maxime ad vel consectetur natus, doloribus voluptatem exercitationem blanditiis dolorum culpa corrupti autem. Quae delectus explicabo nostrum?',
+    date: '2019-4-23',
+  })
+})
 
 //tes crypto
 router.post('/check', function (req, res) {
@@ -161,6 +172,15 @@ router.post('/check', function (req, res) {
   })
 
 })
+
+
+
+
+
+
+
+
+
 
 //numpang ya
 router.get('/getNotif', function (req, res) {
