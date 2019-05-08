@@ -3,6 +3,10 @@ var crypto = require('crypto-js');
 var router = express.Router();
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
+var cors = require('cors')
+
+var app = express()
+app.use(cors())
 
 
 
