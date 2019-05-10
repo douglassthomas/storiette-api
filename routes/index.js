@@ -170,6 +170,56 @@ router.post('/detail', function(req, res, next) {
   })
 })
 
+router.post('/getStories', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods','GET, POST, PATCH, PUT, DELETE, OPTIONS');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
+  id = req.body.id
+
+  // return res.json({
+  //   id: id
+  // })
+
+
+  let query = {
+    sql:'SELECT StoryID, author, thumbnail, Title, synopsis, readsCount, DATE(publishDate) as date, rating FROM story',
+    timeout:40000
+  }
+  connection.query(query, function (err, result) {
+    if(err){
+      return res.json({
+        status:'error',
+        message: err.message
+      })
+    }
+    else{
+      var stories = [];
+      for (let i = 0; i < result.length; i++) {
+        date = new Date(result[i].date)
+        publisDate = date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear()
+        let story={
+          id: result[i].StoryID,
+          author: result[i].author,
+          img: result[i].thumbnail,
+          title: result[i].Title,
+          synopsis: result[i].synopsis,
+          reads: result[i].readsCount,
+          date: publisDate,
+          rating: result[i].rating
+        }
+        stories.push(story)
+      }
+
+      return res.json({
+        stories
+      })
+
+    }
+  })
+})
+
 //tes crypto
 router.post('/check', function (req, res) {
   var pass = req.body.pass
