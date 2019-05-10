@@ -151,9 +151,8 @@ router.post('/detail', function(req, res, next) {
       })
     }
     else{
-      return res.json({date: new Date(result[0].date)})
-
-
+      date = new Date(result[0].date)
+      publisDate = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear()
       return res.json({
         // result
         id: result[0].StoryID,
@@ -161,7 +160,7 @@ router.post('/detail', function(req, res, next) {
         title: result[0].Title,
         synopsis: result[0].synopsis,
         reads: result[0].readsCount,
-        date: results[0].date,
+        date: publisDate,
         rating: result[0].rating
       })
 
