@@ -140,7 +140,7 @@ router.post('/detail', function(req, res, next) {
 
 
   let query = {
-    sql:'SELECT StoryID, thumbnail, Title, synopsis, readsCount, DATE(publishDate), rating FROM story WHERE StoryId=?',
+    sql:'SELECT StoryID, thumbnail, Title, synopsis, readsCount, DATE(publishDate) as date, rating FROM story WHERE StoryId=?',
     timeout:40000
   }
   connection.query(query, [id], function (err, result) {
@@ -151,7 +151,7 @@ router.post('/detail', function(req, res, next) {
       })
     }
     else{
-      return res.json({result})
+      return res.json({date: new Date(result[0].date)})
 
 
       return res.json({
@@ -161,7 +161,7 @@ router.post('/detail', function(req, res, next) {
         title: result[0].Title,
         synopsis: result[0].synopsis,
         reads: result[0].readsCount,
-        date: results[0].publishDate,
+        date: results[0].date,
         rating: result[0].rating
       })
 
