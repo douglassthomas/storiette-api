@@ -151,6 +151,9 @@ router.post('/detail', function(req, res, next) {
       })
     }
     else{
+      return res.json({result})
+
+
       return res.json({
         // result
         id: result[0].StoryID,
