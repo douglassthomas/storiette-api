@@ -16,4 +16,18 @@ $(function () {
         console.log(result);
         $('#ok').html(result.synopsis)
     })
+
+    var detail = $.ajax({
+        url: 'https://storiette-api.azurewebsites.net/story',
+        type: 'POST',
+        data:{
+            id: 1
+        }
+    })
+
+    detail.done(function (result) {
+        console.log(result);
+        $('#audio').src(result.audio)
+    })
+
 })
