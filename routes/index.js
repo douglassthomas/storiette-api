@@ -151,13 +151,13 @@ router.post('/detail', function(req, res, next) {
       })
     }
     else{
-      return res.json({result})
+      // return res.json({result})
 
       return res.json({
         word: 'test',
         id: result[0].StoryId,
         img: result[0].thumbnail,
-        title: result[0].title,
+        title: result[0].Title,
         synopsis: result[0].synopsis,
         reads: result[0].readsCount,
         date: results[0].publishDate,
