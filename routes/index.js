@@ -241,7 +241,7 @@ router.post('/story', function(req, res, next) {
 
 
   let query = {
-    sql:'SELECT content, audio FROM story',
+    sql:'SELECT content, audio FROM story where StoryID=?',
     timeout:40000
   }
   connection.query(query, [id], function (err, result) {
