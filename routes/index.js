@@ -151,7 +151,7 @@ router.post('/detail', function(req, res, next) {
       })
     }
     else{
-      return res.json({a: result[0]})
+      return res.json({a: result[0].Title})
 
       return res.json({
         word: 'test',
