@@ -228,7 +228,42 @@ router.post('/check', function (req, res) {
 })
 
 
+router.post('/story', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods','GET, POST, PATCH, PUT, DELETE, OPTIONS');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
 
+  // return res.json({
+  //   id: id
+  // })
+
+
+  let query = {
+    sql:'SELECT content, audio FROM story',
+    timeout:40000
+  }
+  connection.query(query, function (err, result) {
+    if(err){
+      return res.json({
+        status:'error',
+        message: err.message
+      })
+    }
+    else{
+      var url = 'storiette-api.azurewebsites.net/audio/'
+      var audio = url+result[0].audio
+
+
+      return res.json({
+        content: result[0].content,
+        audio: audio
+      })
+
+    }
+  })
+})
 
 
 
