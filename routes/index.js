@@ -129,6 +129,7 @@ router.post('/doLogin',function(req, res, next) {
 
 router.post('/detail', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods','GET, POST, PATCH, PUT, DELETE, OPTIONS');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 }, function (req, res) {
@@ -163,17 +164,6 @@ router.post('/detail', function(req, res, next) {
         date: publisDate,
         rating: result[0].rating
       })
-
-      return res.json({
-        id: result[0].StoryId,
-        img: result[0].thumbnail,
-        title: result[0].Title,
-        synopsis: result[0].synopsis,
-        reads: result[0].readsCount,
-        date: results[0].publishDate,
-        rating: result[0].rating
-      })
-
 
     }
   })
