@@ -134,6 +134,11 @@ router.post('/detail', function(req, res, next) {
 }, function (req, res) {
   id = req.body.id
 
+  return res.json({
+    id: id
+  })
+
+
   let query = {
     sql:'SELECT * FROM story WHERE StoryId=?',
     timeout:40000
@@ -147,6 +152,7 @@ router.post('/detail', function(req, res, next) {
     }
     else{
       return res.json({
+        word: 'test',
         id: result[0].StoryId,
         img: result[0].thumbnail,
         title: result[0].title,
