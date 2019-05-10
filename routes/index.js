@@ -158,7 +158,7 @@ router.post('/detail', function(req, res, next) {
         title: result[0].Title,
         synopsis: result[0].synopsis,
         reads: result[0].readsCount,
-        // date: results[0].publishDate,
+        date: results[0].publishDate,
         // rating: result[0].rating
       })
 
