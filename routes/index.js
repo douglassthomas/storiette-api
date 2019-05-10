@@ -134,9 +134,9 @@ router.post('/detail', function(req, res, next) {
 }, function (req, res) {
   id = req.body.id
 
-  return res.json({
-    id: id
-  })
+  // return res.json({
+  //   id: id
+  // })
 
 
   let query = {
@@ -151,6 +151,8 @@ router.post('/detail', function(req, res, next) {
       })
     }
     else{
+      return res.json({result})
+
       return res.json({
         word: 'test',
         id: result[0].StoryId,
