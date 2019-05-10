@@ -211,9 +211,7 @@ router.get('/getStories', function(req, res, next) {
         stories.push(story)
       }
 
-      return res.json({
-        stories
-      })
+      return res.json(stories)
 
     }
   })
