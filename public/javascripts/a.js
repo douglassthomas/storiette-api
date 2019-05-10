@@ -27,7 +27,7 @@ $(function () {
 
     detail.done(function (result) {
         console.log(result);
-        $('#audio').attr('src', result.audio)
+        // $('#audio').attr('src', result.audio)
     })
 
 })
