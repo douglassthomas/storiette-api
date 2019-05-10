@@ -151,7 +151,8 @@ router.post('/detail', function(req, res, next) {
       })
     }
     else{
-      return res.json({id: result[0].StoryId,
+      return res.json({result
+        // id: result[0].StoryId,
         // img: result[0].thumbnail,
         // title: result[0].Title,
         // synopsis: result[0].synopsis,
