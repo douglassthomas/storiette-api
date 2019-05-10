@@ -252,7 +252,7 @@ router.post('/story', function(req, res, next) {
       })
     }
     else{
-      var url = 'storiette-api.azurewebsites.net/audio/'
+      var url = 'http://storiette-api.azurewebsites.net/audio/'
       var audio = url+result[0].audio
 
 
