@@ -170,13 +170,12 @@ router.post('/detail', function(req, res, next) {
   })
 })
 
-router.post('/getStories', function(req, res, next) {
+router.get('/getStories', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods','GET, POST, PATCH, PUT, DELETE, OPTIONS');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 }, function (req, res) {
-  id = req.body.id
 
   // return res.json({
   //   id: id
