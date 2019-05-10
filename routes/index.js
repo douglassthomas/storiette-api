@@ -7,13 +7,12 @@ var cors = require('cors')
 
 var app = express()
 app.use(cors())
-app.options('/login', function (req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader('Access-Control-Allow-Methods', '*');
-  res.setHeader("Access-Control-Allow-Headers", "*");
-  res.end();
-});
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 //mysql://bc8be747ba4ac8:36d14e8c@eu-cdbr-west-02.cleardb.net/heroku_537ca9b5b95db5f?reconnect=true
 
@@ -38,6 +37,7 @@ router.get('/', function (req, res) {
 })
 
 router.get('/home', function (req, res) {
+
   res.render('home');
 })
 
