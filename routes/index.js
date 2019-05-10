@@ -55,14 +55,22 @@ router.get('/header', function (req, res) {
 
 
 
-router.get('/allUser', function (req, res) {
+router.get('/allUser', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
   connection.query('SELECT * FROM users', function (err, results) {
     return res.json(results)
   })
 })
 
 
-router.post('/regUser', function (req, res) {
+router.post('/regUser', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
   var username = req.body.username
   var name = req.body.name
   var email = req.body.email
@@ -83,7 +91,11 @@ router.post('/regUser', function (req, res) {
   })
 })
 
-router.post('/doLogin', function (req, res) {
+router.post('/doLogin',function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
   var username = req.body.username
   var password = crypto.SHA256(req.body.password).toString()
   
@@ -115,20 +127,36 @@ router.post('/doLogin', function (req, res) {
 
 })
 
-router.get('/story', function (req, res) {
+router.get('/detail', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
   id = req.body.id
 
-  return res.json({
-    id: id,
-    title: 'Berak tak Cebok',
-    author: 'Mr. Janji Pengkhianat wkwkw',
-    content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed illum libero fugiat consequuntur maxime ad vel consectetur natus, doloribus voluptatem exercitationem blanditiis dolorum culpa corrupti autem. Quae delectus explicabo nostrum? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed illum libero fugiat consequuntur maxime ad vel consectetur natus, doloribus voluptatem exercitationem blanditiis dolorum culpa corrupti autem. Quae delectus explicabo nostrum? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed illum libero fugiat consequuntur maxime ad vel consectetur natus, doloribus voluptatem exercitationem blanditiis dolorum culpa corrupti autem. Quae delectus explicabo nostrum? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed illum libero fugiat consequuntur maxime ad vel consectetur natus, doloribus voluptatem exercitationem blanditiis dolorum culpa corrupti autem. Quae delectus explicabo nostrum?',
-    date: '2019-4-23',
+  let query = {
+    sql:'SELECT * FROM story WHERE StoryId=?',
+    timeout:40000
+  }
+  connection.query(query, [id], function (err, result) {
+    if(err){
+      return res.json({
+        status:'error',
+        message: err.message
+      })
+    }
+    else{
+      return res.json({
+        id: result[0].StoryId,
+        img: result[0].thumbnail,
+        title: result[0].title,
+        synopsis: result[0].synopsis,
+        reads: result[0].readsCount,
+        date: results[0].publishDate,
+        rating: result[0].rating
+      })
+    }
   })
-
-  // return res.json({
-  //   a: 'a'
-  // })
 })
 
 //tes crypto
