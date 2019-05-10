@@ -151,7 +151,7 @@ router.post('/detail', function(req, res, next) {
       })
     }
     else{
-      // return res.json({result})
+      return res.json({result[0].Title})
 
       return res.json({
         word: 'test',
@@ -163,6 +163,8 @@ router.post('/detail', function(req, res, next) {
         date: results[0].publishDate,
         rating: result[0].rating
       })
+
+
     }
   })
 })
