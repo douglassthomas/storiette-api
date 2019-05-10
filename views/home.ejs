@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-    <script src="a.js"></script>
+    <script src="./javascripts/a.js"></script>
     <script>
         var detail = $.ajax({
         url: 'https://storiette-api.azurewebsites.net/',
@@ -19,9 +19,10 @@
         // }
         })
 
-        detail.done(function (result) {
-            console.log(result);
-        })
+        // detail.done(function (result) {
+        //     console.log(result);
+        //     document.getElementById('ok').innerHTML(result)
+        // })
     </script>
 </head>
 <body>
@@ -30,7 +31,7 @@
         <input type="text" name="pass" id="pass">
         <input type="submit" value="check">
     </form>
-
+    <p id="ok"></p>
 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed illum libero fugiat consequuntur maxime ad vel consectetur natus, doloribus voluptatem exercitationem blanditiis dolorum culpa corrupti autem. Quae delectus explicabo nostrum?
 </body>
 </html>

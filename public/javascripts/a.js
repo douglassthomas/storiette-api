@@ -2,7 +2,7 @@ function getDetail(){
     
 }
 
-(function () {
+$(function () {
     console.log("start")
     var detail = $.ajax({
         url: 'https://storiette-api.azurewebsites.net/',
@@ -14,5 +14,6 @@ function getDetail(){
 
     detail.done(function (result) {
         console.log(result);
+        $('#ok').html(result)
     })
 })
