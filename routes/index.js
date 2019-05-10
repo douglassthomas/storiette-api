@@ -234,7 +234,7 @@ router.post('/story', function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 }, function (req, res) {
-
+  var id = req.body.id
   // return res.json({
   //   id: id
   // })
@@ -244,7 +244,7 @@ router.post('/story', function(req, res, next) {
     sql:'SELECT content, audio FROM story',
     timeout:40000
   }
-  connection.query(query, function (err, result) {
+  connection.query(query, [id], function (err, result) {
     if(err){
       return res.json({
         status:'error',
