@@ -280,7 +280,7 @@ router.post('/story', function(req, res, next) {
       })
     }
     else{
-      var url = 'http://storiette-api.azurewebsites.net/audio/'
+      var url = 'http://storiette-api.herokuapp.com/audio/'
       var audio = url+result[0].audio
 
       var urldata = 'http://storiette-api.azurewebsites.net/data/'
