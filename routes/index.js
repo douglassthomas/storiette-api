@@ -269,7 +269,7 @@ router.post('/story', function(req, res, next) {
 
 
   let query = {
-    sql:'SELECT content, audio FROM story where StoryID=?',
+    sql:'SELECT content, audio, dataSync FROM story where StoryID=?',
     timeout:40000
   }
   connection.query(query, [id], function (err, result) {
@@ -283,18 +283,19 @@ router.post('/story', function(req, res, next) {
       var url = 'http://storiette-api.azurewebsites.net/audio/'
       var audio = url+result[0].audio
 
+      var urldata = 'http://storiette-api.azurewebsites.net/data/'
+      var data = urldata+result[0].dataSync
+
 
       return res.json({
         content: result[0].content,
-        audio: audio
+        audio: audio,
+        data: data
       })
 
     }
   })
 })
-
-
-
 
 
 

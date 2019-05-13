@@ -32,7 +32,7 @@ $(function () {
 
 
     var data = $.ajax({
-        url: './data/1.txt',
+        url: 'https://storiette-api.azurewebsites.net/data/1.txt',
         type: 'GET'
     })
 
