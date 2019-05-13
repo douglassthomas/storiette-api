@@ -141,7 +141,7 @@ router.post('/detail', function(req, res, next) {
 
 
   let query = {
-    sql:'SELECT StoryID, author, thumbnail, Title, synopsis, readsCount, DATE(publishDate) as date, rating FROM story WHERE StoryId=?',
+    sql:'SELECT StoryID, author, category, thumbnail, Title, synopsis, readsCount, DATE(publishDate) as date, rating FROM story WHERE StoryId=?',
     timeout:40000
   }
   connection.query(query, [id], function (err, result) {
