@@ -218,6 +218,33 @@ router.get('/getStories', function(req, res, next) {
   })
 })
 
+router.post('/getAudioData', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods','GET, POST, PATCH, PUT, DELETE, OPTIONS');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
+  var id = req.body.id
+
+  let query = {
+    sql:'SELECT * FROM audioData where storyID=?',
+    timeout:40000
+  }
+  connection.query(query,[id], function (err, result) {
+    if(err){
+      return res.json({
+        status:'error',
+        message: err.message
+      })
+    }
+    else{
+
+      return res.json(result)
+
+    }
+  })
+})
+
 //tes crypto
 router.post('/check', function (req, res) {
   var pass = req.body.pass

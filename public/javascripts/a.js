@@ -30,4 +30,21 @@ $(function () {
         // $('#audio').attr('src', result.audio)
     })
 
+
+    var data = $.ajax({
+        url: './data/1.txt',
+        type: 'GET'
+    })
+
+    data.done(function (result) {
+        // var d = result[0].data
+        // var data = JSON.parse(d)
+
+
+        console.log(JSON.parse(result))
+
+        // for(let i=0; i<data.length; i++){
+        //     console.log(data[i])
+        // }
+    })
 })
