@@ -31,9 +31,14 @@ $(function () {
     })
 
 
+    console.log(JSON.parse('{"id":5, "name":"Joko"}'))
+
     var data = $.ajax({
-        url: 'https://storiette-api.azurewebsites.net/data/1.txt',
-        type: 'GET'
+        url: '/story',
+        type: 'POST',
+        data:{
+            id: 1
+        }
     })
 
     data.done(function (result) {
@@ -41,7 +46,7 @@ $(function () {
         // var data = JSON.parse(d)
 
 
-        console.log(JSON.parse(result))
+        console.log(JSON.parse(result.data))
 
         // for(let i=0; i<data.length; i++){
         //     console.log(data[i])

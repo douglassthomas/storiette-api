@@ -269,7 +269,7 @@ router.post('/story', function(req, res, next) {
 
 
   let query = {
-    sql:'SELECT content, audio, dataSync FROM story where StoryID=?',
+    sql:'SELECT content, audio, data, dataSync FROM story s JOIN audioData ad on s.StoryID = ad.StoryID where s.StoryID=?',
     timeout:40000
   }
   connection.query(query, [id], function (err, result) {
@@ -290,7 +290,7 @@ router.post('/story', function(req, res, next) {
       return res.json({
         content: result[0].content,
         audio: audio,
-        data: data
+        data: result[0].data
       })
 
     }
