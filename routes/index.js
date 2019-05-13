@@ -160,6 +160,7 @@ router.post('/detail', function(req, res, next) {
         author: result[0].author,
         img: result[0].thumbnail,
         title: result[0].Title,
+        category: result[0].category,
         synopsis: result[0].synopsis,
         reads: result[0].readsCount,
         date: publisDate,
