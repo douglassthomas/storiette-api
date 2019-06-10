@@ -25,11 +25,11 @@ let mysqlOpt = {
 }
 let connection = mysql.createConnection(mysqlOpt);
 
-setTimeout(() => {
-  connection.query('SELECT 1', () => {
-    console.log('keepalive kicked in')
-  })
-}, 55000)
+// setTimeout(() => {
+//   connection.query('SELECT 1', () => {
+//     console.log('keepalive kicked in')
+//   })
+// }, 55000)
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
