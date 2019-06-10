@@ -25,6 +25,11 @@ let mysqlOpt = {
 }
 let connection = mysql.createConnection(mysqlOpt);
 
+setTimeout(() => {
+  connection.query('SELECT 1', () => {
+    console.log('keepalive kicked in')
+  })
+}, 55000)
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
@@ -114,7 +119,8 @@ router.post('/doLogin',function(req, res, next) {
       if(result[0].password === password){
         return res.json({
           status: 'success',
-          username: result[0].username
+          username: result[0].username,
+
         })
       }
       else{
@@ -286,64 +292,239 @@ router.post('/story', function(req, res, next) {
       var urldata = 'http://storiette-api.azurewebsites.net/data/'
       var data = urldata+result[0].dataSync
 
+      var arr = JSON.parse(result[0].data)
+      var newArr = []
+      for(const r of arr){
+        var R = r;
+        R.id-=1;
+        newArr = [...newArr, R]
+      }
+
+
 
       return res.json({
         content: result[0].content,
         audio: audio,
-        data: result[0].data
+        data: newArr
       })
 
     }
   })
 })
 
+router.post('/postStoryComment',function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
+  var storyId = req.body.storyId
+  var username = req.body.username
+  var commentText = req.body.commentText
 
-
-
-//numpang ya
-router.get('/getNotif', function (req, res) {
-  return res.json([
-    {
-      idPasien:'IK01938',
-      name:'Borong borong',
-      date:'27/03/2019',
-      status:'normal'
-    },
-    {
-      idPasien:'IP02438',
-      name:'Borong borong',
-      date:'22/03/2019',
-      status:'terindikasi'
-    },
-    {
-      idPasien:'IA00938',
-      name:'Borong borong',
-      date:'28/03/2019',
-      status:'waspada'
-    }
-  ])
-})
-
-router.post('/dokterLogin', function (req, res) {
-    var id = req.body.id;
-
-    if(id=='DR000111'){
+  let query = {
+    sql:`
+      INSERT INTO comment (
+        storyHeaderId,
+        username,
+        commentText,
+        seen
+      ) values (
+        ?, ?, ?, 0
+      )
+    
+    `,
+    timeout:40000
+  }
+  connection.query(query, [storyId, username, commentText], function (err, result) {
+    if(err){
       return res.json({
-        loginstatus: 'success',
-        id: id,
-        nama: 'Boyke'
+        status:'error',
+        message: err.message
       })
     }
+    else{
+      return res.json({
+        status: 'sukses'
+      })
+    }
+  })
 })
 
-router.post('/lempar', function (req, res) {
-    console.log(req.body)
-
-
-    return res.json(
-      req.body
-    )  
+router.post('/getStoryComment',function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
+  var storyId = req.body.storyId
+  let query = {
+    sql:'SELECT * FROM comment WHERE storyHeaderId=?',
+    timeout:40000
+  }
+  connection.query(query, [storyId], function (err, result) {
+    if(err){
+      return res.json({
+        status:'error',
+        message: err.message
+      })
+    }
+    else{
+      return res.json(result)
+    }
+  })
 })
 
+router.post('/postUserHistory',function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
+  var storyId = req.body.storyId
+  var username = req.body.username
+
+  let query = {
+    sql:`
+    insert into history(StoryHeaderID, username) 
+    values(?, ?)
+    `,
+    timeout:40000
+  }
+  connection.query(query, [storyId, username], function (err, result) {
+    if(err){
+      return res.json({
+        status:'error',
+        message: err.message
+      })
+    }
+    else{
+      return res.json({
+        status: 'sukses'
+      })
+    }
+  })
+})
+
+router.post('/postUserHistory',function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
+  var storyId = req.body.storyId
+  var username = req.body.username
+
+  let query = {
+    sql:`
+    insert into history(StoryHeaderID, username) 
+    values(?, ?)
+    `,
+    timeout:40000
+  }
+  connection.query(query, [storyId, username], function (err, result) {
+    if(err){
+      return res.json({
+        status:'error',
+        message: err.message
+      })
+    }
+    else{
+      return res.json({
+        status: 'sukses'
+      })
+    }
+  })
+})
+
+
+
+router.post('/getUserHistory',function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
+  var username = req.body.username
+
+  let query = {
+    sql:`
+    select distinct s.StoryId, Title, thumbnail from history h
+    join story s
+    on h.StoryHeaderID = s.StoryID
+    where username=?
+    order by id desc
+    limit 5
+    `,
+    timeout:40000
+  }
+  connection.query(query, [username], function (err, result) {
+    if(err){
+      return res.json({
+        status:'error',
+        message: err.message
+      })
+    }
+    else{
+      return res.json(result)
+    }
+  })
+})
+
+router.post('/postUserFavorite',function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
+  var storyId = req.body.storyId
+  var username = req.body.username
+
+  let query = {
+    sql:`
+    insert into favorite(StoryHeaderID, username) 
+    values(?, ?)
+    `,
+    timeout:40000
+  }
+  connection.query(query, [storyId, username], function (err, result) {
+    if(err){
+      return res.json({
+        status:'error',
+        message: err.message
+      })
+    }
+    else{
+      return res.json({
+        status: 'sukses'
+      })
+    }
+  })
+})
+
+
+router.post('/getUserFavorite',function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}, function (req, res) {
+  var username = req.body.username
+
+  let query = {
+    sql:`
+    select distinct s.StoryId, Title, thumbnail from favorite h
+    join story s
+    on h.StoryHeaderID = s.StoryID
+    where username=?
+    order by id desc
+    `,
+    timeout:40000
+  }
+  connection.query(query, [username], function (err, result) {
+    if(err){
+      return res.json({
+        status:'error',
+        message: err.message
+      })
+    }
+    else{
+      return res.json(result)
+    }
+  })
+})
 
 module.exports = router;
