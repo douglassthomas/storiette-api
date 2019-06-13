@@ -522,7 +522,7 @@ router.post('/getUserFavorite',function(req, res, next) {
       })
     }
     else{
-      return res.json(result)
+      return result
     }
   })
 })
